@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<title>user accounts</title>
+<body>
+	<h2>[[${account.accountName}]]</h2>
+
+	<form
+		th:action="@{/users/{userId}/accounts/{accountId}(userId=${user.userId},accountId =${account.accountId})}"
+		method="post">
+		<div>
+			Account Name:<input type="text" th:field="${account.accountName}" />
+		</div>
+		<div>
+				<input type="submit" value="Update Account" />
+		</div>
+	</form>
+	<hr />
+	<div>
+		<a th:href ="@{/users/{userId}/(userId=${user.userId})}"><label>Back</label></a>
+	</div>
+</body>
+</html>
