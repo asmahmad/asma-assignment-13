@@ -24,12 +24,6 @@ public class AccountService {
 		return accountRepo.findById(accountId);
 	}
 
-	public void save(String accountName, Account account) {
-			
-			 account.setAccountName(accountName);
-		     accountRepo.save(account);
-			
-		}
 	public void save(Account account) {
 		
 	     accountRepo.save(account);
@@ -50,4 +44,6 @@ public class AccountService {
 		accountRepo.saveAll(accounts);
 		
 	}
+
+
 }

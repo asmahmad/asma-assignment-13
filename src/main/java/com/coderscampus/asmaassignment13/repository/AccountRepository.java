@@ -9,7 +9,6 @@ import com.coderscampus.asmaassignment13.domain.User;
 
 public interface AccountRepository extends JpaRepository<Account, Long>{
 	
-	
 	List<Account> findByUsersContaining(User user);
 
 }
