@@ -119,6 +119,7 @@ public class UserService {
 		user.setAddress(address);
 		address.setUser(user);
 		addressRepo.save(address);
+		userRepo.save(user);
 
 	}
 

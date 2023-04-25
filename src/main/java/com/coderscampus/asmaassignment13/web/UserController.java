@@ -59,21 +59,21 @@ public class UserController {
 	public String getOneUser(ModelMap model, @PathVariable Long userId,
 			@SessionAttribute("boolValue") Boolean boolValue) {
 
-		Set<User> user = userService.findAll();
+		Set<User> users = userService.findAll();
 		List<Account> accounts = new ArrayList<>();
-		for (User u : user) {
-			if (u.getUserId().equals(userId)) {
-				accounts = u.getAccounts();
+		for (User user : users) {
+			if (user.getUserId().equals(userId)) {
+				accounts = user.getAccounts();
 
 				int accountCount = accounts.size();
-				model.put("user", u);
+				model.put("user", user);
 				model.put("accountCount", accountCount);
 				model.put("accounts", accounts);
 				model.addAttribute("boolValue", boolValue);
 				break;
 			}
 		}
-		model.put("users", Arrays.asList(user));
+		model.put("users", Arrays.asList(users));
 		return "users";
 	}
 
@@ -87,6 +87,7 @@ public class UserController {
 			foundUser.setUsername(user.getUsername());
 			userService.updateAddress(user, address);
 			userService.saveUser(foundUser, address);
+			break;
 
 		}	
 		return "redirect:/users/" + user.getUserId();

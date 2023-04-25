@@ -36,11 +36,12 @@ public class AccountController {
 		Set<User> users = userService.findAll();
 		for (User user : users) {
 			if (user.getUserId().equals(userId)) {
-				
+
 				Account newAccount = userService.addAccount(user);
 				newAccountId = newAccount.getAccountId();
 				model.put("account", newAccount);
 				model.addAttribute("boolValue", boolValue);
+				model.put("user", user);
 				session.setAttribute("boolValue", boolValue);
 			}
 		}
@@ -51,9 +52,9 @@ public class AccountController {
 	@GetMapping("/users/{userId}/accounts/{accountId}")
 	public String getAccount(@PathVariable Long userId, @PathVariable Long accountId, ModelMap model,
 			HttpSession session) {
-		
+
 		Boolean boolValue = false;
-		
+
 		Set<User> users = userService.findAll();
 		for (User user : users) {
 			if (user.getUserId().equals(userId)) {
@@ -64,10 +65,12 @@ public class AccountController {
 						model.put("account", account);
 						model.addAttribute("boolValue", boolValue);
 						session.setAttribute("boolValue", boolValue);
+						break;
 					}
 				}
+				model.put("user", user);
+				break;
 			}
-			model.put("user", user);
 		}
 
 		return "accounts";
@@ -91,7 +94,7 @@ public class AccountController {
 						break;
 					}
 				}
-				
+
 				int accountCount = accounts.size();
 				model.put("user", user);
 				model.put("accountCount", accountCount);
@@ -99,7 +102,7 @@ public class AccountController {
 				model.addAttribute("boolValue", boolValue);
 				break;
 			}
-			
+
 		}
 		return "redirect:/users/" + userId + "/accounts/" + accountId;
 	}
