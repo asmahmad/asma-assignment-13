@@ -41,7 +41,7 @@ public class Account {
 		this.accountName = accountName;
 	}
 
-	@OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(mappedBy = "account", cascade = CascadeType.MERGE)//{CascadeType.PERSIST, CascadeType.MERGE})
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
