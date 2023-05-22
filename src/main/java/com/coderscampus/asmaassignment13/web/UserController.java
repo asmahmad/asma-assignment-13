@@ -35,7 +35,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public String postCreateUser(User user) {
-		
+
 		System.out.println(user);
 		userService.saveUser(user);
 		return "redirect:/register";
@@ -81,22 +81,23 @@ public class UserController {
 	public String postOneUser(User user, @PathVariable Long userId, Address address) {
 		Set<User> allUsers = userService.findAll();
 		for (User foundUser : allUsers) {
+			if (user.getUserId().equals(foundUser.getUserId())) {
+				foundUser.setName(user.getName());
+				foundUser.setPassword(user.getPassword());
+				foundUser.setUsername(user.getUsername());
+				userService.updateAddress(user, address);
+				userService.saveUser(foundUser, address);
+				break;
+			}
 
-			foundUser.setName(user.getName());
-			foundUser.setPassword(user.getPassword());
-			foundUser.setUsername(user.getUsername());
-			userService.updateAddress(user, address);
-			userService.saveUser(foundUser, address);
-			break;
-
-		}	
+		}
 		return "redirect:/users/" + user.getUserId();
 	}
-	
+
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser(@PathVariable Long userId) {
 		userService.delete(userId);
-		
+
 		return "redirect:/users";
 	}
 
